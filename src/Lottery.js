@@ -6,12 +6,15 @@ import LottoChecker from './LottoChecker';
 
 export default function Lottery() {
     const message = 'FaunaMart™ Lottery Simulator'; 
-    const players = ['fauna', 'mococo'];
+    const players = ['mori', 'kiara', 'ina', 'gura', 'amelia', 'irys', 'fauna', 'kronii', 'mumei', 'baelz', 'shiori', 'bijou', 'nerissa', 'fuwawa', 'mococo', 'elizabeth', 'gigi', 'cecelia', 'raora'];
+    const description = `Valid players: ${players.join(', ')}`;
     const [tickets, setTickets] = useState( [] );
     const [inputValue, setInputValue] = useState(''); // Initialize state for the input value
     const [inputPlayer, setInputPlayer] = useState('');
     const [playerRandom, setPlayerRandom] = useState('');
     const [playerRandomNum, setPlayerRandomNum] = useState('');
+    const [numberToCheck, setNumberCheck] = useState('');
+    const [checkResult, setCheckResult] = useState('');
 
     const handleChange = (event) => {
         setInputValue(event.target.value); // Update the state with the new input value
@@ -27,6 +30,10 @@ export default function Lottery() {
 
     const handlePlayerRandomNumChange = (event) => {
         setPlayerRandomNum(event.target.value);
+    }
+
+    const handleCheckChange = (event) => {
+        setNumberCheck(event.target.value);
     }
 
     const handleAddTicket = () => {
@@ -48,6 +55,17 @@ export default function Lottery() {
         handleAddRandom(playerRandom, playerRandomNum);
         console.log(tickets);
         setPlayerRandomNum('');
+    }
+
+    const handleNumberCheck = () => {
+        if (!validNumber(Number(numberToCheck))) { // Convert num to a number for validation
+            alert('Invalid number: ' + numberToCheck);
+            return;
+        }
+        let winningTickets = tickets.filter((ticket) => ticket.number === Number(numberToCheck))
+        console.log(tickets);
+        console.log(winningTickets)
+        setCheckResult(winningTickets);
     }
 
     function validPlayer(str) {
@@ -81,15 +99,16 @@ export default function Lottery() {
             alert('Invalid player: ' + playerStr);
             return;
         }
-        let newTicket = { player: playerStr, number: num };
+        let newTicket = { player: playerStr, number: Number(num) };
         setTickets([...tickets, newTicket]);
     }
 
     const numTest = 125;
     return (
         <div style={{display:'flex', flexDirection:'row', gap:'10px'}}>
-            <div style={{display:'flex', flexDirection:'column'}}>
-            <h2 style={{marginTop:'0px'}}>{message}</h2>
+            <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+            <h2 style={{marginBlock:'0px'}}>{message}</h2>
+            <p style={{fontSize:'15px', width:'30vw'}}>{description}</p>
             <h3>Add Ticket</h3>
             <LottoInput
                 value={inputValue}
@@ -107,7 +126,16 @@ export default function Lottery() {
                 onPlayerRandomNumChange={handlePlayerRandomNumChange}
             />
             </div>
-        <TicketViewer tickets={tickets}/>
+            <div style={{display:'flex', flexDirection:'column'}}>
+                <TicketViewer tickets={tickets}/>
+                <LottoChecker 
+                    tickets={tickets} 
+                    numberToCheck={numberToCheck} 
+                    numberCheckChange={handleCheckChange} 
+                    numberCheckClick={handleNumberCheck}
+                    checkResult={checkResult}
+            />        
+            </div>
         </div>
 
     );
