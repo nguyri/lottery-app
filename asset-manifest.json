@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/lotto-app/static/css/main.b78cd1cc.css",
-    "main.js": "/lotto-app/static/js/main.97c768da.js",
-    "static/js/453.f925322b.chunk.js": "/lotto-app/static/js/453.f925322b.chunk.js",
-    "static/media/logo.svg": "/lotto-app/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/lotto-app/index.html",
-    "main.b78cd1cc.css.map": "/lotto-app/static/css/main.b78cd1cc.css.map",
-    "main.97c768da.js.map": "/lotto-app/static/js/main.97c768da.js.map",
-    "453.f925322b.chunk.js.map": "/lotto-app/static/js/453.f925322b.chunk.js.map"
+    "main.css": "/static/css/main.b78cd1cc.css",
+    "main.js": "/static/js/main.dca66dba.js",
+    "static/js/453.a13d2d30.chunk.js": "/static/js/453.a13d2d30.chunk.js",
+    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/index.html",
+    "main.b78cd1cc.css.map": "/static/css/main.b78cd1cc.css.map",
+    "main.dca66dba.js.map": "/static/js/main.dca66dba.js.map",
+    "453.a13d2d30.chunk.js.map": "/static/js/453.a13d2d30.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.b78cd1cc.css",
-    "static/js/main.97c768da.js"
+    "static/js/main.dca66dba.js"
   ]
 }
