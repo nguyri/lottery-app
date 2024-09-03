@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import LottoInput from './LottoInput';
 import LottoRandom from './LottoRandom';
+import TicketViewer from './TicketViewer';
 
 export default function Lottery() {
     const message = 'FaunaMart Lottery Simulator'; 
@@ -29,18 +30,23 @@ export default function Lottery() {
 
     const handleAddTicket = () => {
         addTicket(inputPlayer, inputValue); // Use 'fauna' for testing
+        setInputValue('');
     };
 
     const handleAddTicketRandom = () => {
+        const newTickets = [];
         for(let i = 0; i < playerRandomNum; i++) {
-            addTicket(playerRandom, generateRandomTicketNumber());
+            newTickets.push({player: playerRandom, number:generateRandomTicketNumber()})
         }
+        setTickets((prevTickets) =>  [...prevTickets, ...newTickets]);
+        setPlayerRandomNum('');
         console.log(tickets);
     }
 
     const handleAddRandom = () => {
         handleAddRandom(playerRandom, playerRandomNum);
         console.log(tickets);
+        setPlayerRandomNum('');
     }
 
     function validPlayer(str) {
@@ -74,12 +80,14 @@ export default function Lottery() {
             alert('Invalid player: ' + playerStr);
             return;
         }
-        tickets.push({ player: playerStr, number: num });
+        let newTicket = { player: playerStr, number: num };
+        setTickets([...tickets, newTicket]);
     }
 
     const numTest = 125;
     return (
-        <>
+        <div style={{display:'flex', flexDirection:'row'}}>
+            <div style={{display:'flex', flexDirection:'column'}}>
             <h2>{message}</h2>
             <h3>Add Ticket</h3>
             <LottoInput
@@ -88,7 +96,7 @@ export default function Lottery() {
                 onClick={handleAddTicket}
                 player={inputPlayer}
                 onPlayerChange={handlePlayerChange}
-            />
+                />
             <h3>Random Tickets</h3> 
             <LottoRandom
                 playerRandom={playerRandom}
@@ -97,6 +105,9 @@ export default function Lottery() {
                 playerRandomNum={playerRandomNum}
                 onPlayerRandomNumChange={handlePlayerRandomNumChange}
             />
-        </>
+            </div>
+        <TicketViewer tickets={tickets}/>
+        </div>
+
     );
 }
