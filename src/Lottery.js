@@ -78,15 +78,17 @@ export default function Lottery() {
         let tens = Math.floor(number / 10) % 10;
         let hundreds = Math.floor(number / 100);
         if (ones === tens || tens === hundreds || ones === hundreds) return false;
+        if (ones * tens * hundreds === 0) return false;
         return true;
     }
 
     function generateRandomTicketNumber() {
         let num = 0;
-        let max = 987, min = 123;
-        do {
-            num = Math.floor(Math.random() * (max - min + 1)) + min;
-        } while(!validNumber(num))
+        let max = 9, min = 1;
+        for (let i = 0; i < 3; i++) {
+            let digit = Math.floor(Math.random() * (max - min + 1)) + min; 
+            num = num * 10 + digit; 
+        }
         return num;
     }
 
