@@ -2,9 +2,10 @@ import { useState } from 'react';
 import LottoInput from './LottoInput';
 import LottoRandom from './LottoRandom';
 import TicketViewer from './TicketViewer';
+import LottoChecker from './LottoChecker';
 
 export default function Lottery() {
-    const message = 'FaunaMart Lottery Simulator'; 
+    const message = 'FaunaMart™ Lottery Simulator'; 
     const players = ['fauna', 'mococo'];
     const [tickets, setTickets] = useState( [] );
     const [inputValue, setInputValue] = useState(''); // Initialize state for the input value
@@ -86,9 +87,9 @@ export default function Lottery() {
 
     const numTest = 125;
     return (
-        <div style={{display:'flex', flexDirection:'row'}}>
+        <div style={{display:'flex', flexDirection:'row', gap:'10px'}}>
             <div style={{display:'flex', flexDirection:'column'}}>
-            <h2>{message}</h2>
+            <h2 style={{marginTop:'0px'}}>{message}</h2>
             <h3>Add Ticket</h3>
             <LottoInput
                 value={inputValue}
