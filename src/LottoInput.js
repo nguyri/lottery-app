@@ -11,7 +11,7 @@ export default function LottoInput({ value, onChange, player, onPlayerChange, on
             />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div>Lotto Number: </div>
+                <div>Picked Number: </div>
             <input
                 type="number"
                 value={value}

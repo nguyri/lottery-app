@@ -16,7 +16,7 @@ export default function TicketViewer(props) {
         : props.tickets.map(ticket => `${ticket.player}, ${ticket.number}`).join('\n');
 
     return (
-        <div style={{ width: '30%', fontSize: '15px', overflow: 'auto', maxHeight: '50vh', marginTop:'30px'}}>
+        <div style={{ width: 'auto', fontSize: '15px', overflow: 'auto', maxHeight: '30vh', marginTop:'30px'}}>
             <button 
                 onClick={copyToClipboard} 
                 style={{ marginBottom: '2px' }}
