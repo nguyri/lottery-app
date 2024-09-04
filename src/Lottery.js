@@ -9,20 +9,11 @@ export default function Lottery() {
     const players = ['mori', 'kiara', 'ina', 'gura', 'amelia', 'irys', 'fauna', 'kronii', 'mumei', 'baelz', 'shiori', 'bijou', 'nerissa', 'fuwawa', 'mococo', 'elizabeth', 'gigi', 'cecelia', 'raora'];
     const description = `Valid players: ${players.join(', ')}`;
     const [tickets, setTickets] = useState( [] );
-    const [inputValue, setInputValue] = useState(''); // Initialize state for the input value
-    const [inputPlayer, setInputPlayer] = useState('');
+
     const [playerRandom, setPlayerRandom] = useState('');
     const [playerRandomNum, setPlayerRandomNum] = useState('');
     const [numberToCheck, setNumberCheck] = useState('');
     const [checkResult, setCheckResult] = useState('');
-
-    const handleChange = (event) => {
-        setInputValue(event.target.value); // Update the state with the new input value
-    };
-
-    const handlePlayerChange = (event) => {
-        setInputPlayer(event.target.value);
-    }
 
     const handlePlayerRandom = (event) => {
         setPlayerRandom(event.target.value);
@@ -35,11 +26,6 @@ export default function Lottery() {
     const handleCheckChange = (event) => {
         setNumberCheck(event.target.value);
     }
-
-    const handleAddTicket = () => {
-        addTicket(inputPlayer, inputValue); // Use 'fauna' for testing
-        setInputValue('');
-    };
 
     const handleAddTicketRandom = () => {
         const newTickets = [];
@@ -113,11 +99,7 @@ export default function Lottery() {
             <p style={{fontSize:'15px', width:'30vw'}}>{description}</p>
             <h3>Add Ticket</h3>
             <LottoInput
-                value={inputValue}
-                onChange={handleChange}
-                onClick={handleAddTicket}
-                player={inputPlayer}
-                onPlayerChange={handlePlayerChange}
+                addTicket={addTicket}
                 />
             <h3>Random Tickets</h3> 
             <LottoRandom
