@@ -1,4 +1,19 @@
-export default function LottoRandom({ playerRandomNum, onPlayerRandomNumChange, playerRandom, onPlayerRandomChange,  onPlayerRandomClick }) {
+import { useState } from 'react';
+
+export default function LottoRandom({ addTicketRandom }) {
+    const [playerRandom, setPlayerRandom] = useState('');
+    const [playerRandomNum, setPlayerRandomNum] = useState('');
+
+    const handlePlayerRandom = (e) => setPlayerRandom(e.target.value);
+    const handlePlayerRandomNumChange = (e) => setPlayerRandomNum(e.target.value);
+
+    const handleSubmit = () => {
+        if (playerRandom && playerRandomNum) {
+            addTicketRandom(playerRandom, playerRandomNum)
+            }
+        setPlayerRandomNum('');
+    }
+
     return (
         <>
         <div style={{display:'flex', flexDirection:'column', alignItems:'center', gap:'10px'}}>
@@ -7,7 +22,7 @@ export default function LottoRandom({ playerRandomNum, onPlayerRandomNumChange, 
             <input
                 type="player"
                 value={playerRandom}
-                onChange={onPlayerRandomChange}
+                onChange={handlePlayerRandom}
             />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -15,10 +30,10 @@ export default function LottoRandom({ playerRandomNum, onPlayerRandomNumChange, 
             <input
                 type="number"
                 value={playerRandomNum}
-                onChange={onPlayerRandomNumChange}
+                onChange={handlePlayerRandomNumChange}
             />
             </div>
-            <button onClick={onPlayerRandomClick}>Add Tickets</button>
+            <button onClick={handleSubmit}>Add Tickets</button>
             </div>
         </>
     );

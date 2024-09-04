@@ -10,37 +10,19 @@ export default function Lottery() {
     const description = `Valid players: ${players.join(', ')}`;
     const [tickets, setTickets] = useState( [] );
 
-    const [playerRandom, setPlayerRandom] = useState('');
-    const [playerRandomNum, setPlayerRandomNum] = useState('');
     const [numberToCheck, setNumberCheck] = useState('');
     const [checkResult, setCheckResult] = useState('');
-
-    const handlePlayerRandom = (event) => {
-        setPlayerRandom(event.target.value);
-    }
-
-    const handlePlayerRandomNumChange = (event) => {
-        setPlayerRandomNum(event.target.value);
-    }
 
     const handleCheckChange = (event) => {
         setNumberCheck(event.target.value);
     }
 
-    const handleAddTicketRandom = () => {
+    const addTicketRandom = (playerStr, num) => {
         const newTickets = [];
-        for(let i = 0; i < playerRandomNum; i++) {
-            newTickets.push({player: playerRandom, number:generateRandomTicketNumber()})
+        for(let i = 0; i < num; i++) {
+            newTickets.push({player: playerStr, number:generateRandomTicketNumber()})
         }
         setTickets((prevTickets) =>  [...prevTickets, ...newTickets]);
-        setPlayerRandomNum('');
-        console.log(tickets);
-    }
-
-    const handleAddRandom = () => {
-        handleAddRandom(playerRandom, playerRandomNum);
-        console.log(tickets);
-        setPlayerRandomNum('');
     }
 
     const handleNumberCheck = () => {
@@ -69,13 +51,14 @@ export default function Lottery() {
     }
 
     function generateRandomTicketNumber() {
-        let num = 0;
-        let max = 9, min = 1;
-        for (let i = 0; i < 3; i++) {
-            let digit = Math.floor(Math.random() * (max - min + 1)) + min; 
-            num = num * 10 + digit; 
+        let digits = new Set();
+        while (digits.size < 3) {
+            const digit = Math.floor(Math.random() * 9) + 1; 
+            digits.add(digit); 
         }
-        return num;
+
+        let number = Array.from(digits).join('');
+        return Number(number);
     }
 
     function addTicket(playerStr, num) {
@@ -91,7 +74,6 @@ export default function Lottery() {
         setTickets([...tickets, newTicket]);
     }
 
-    const numTest = 125;
     return (
         <div style={{display:'flex', flexDirection:'row', gap:'10px'}}>
             <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
@@ -103,11 +85,7 @@ export default function Lottery() {
                 />
             <h3>Random Tickets</h3> 
             <LottoRandom
-                playerRandom={playerRandom}
-                onPlayerRandomChange={handlePlayerRandom}
-                onPlayerRandomClick={handleAddTicketRandom}
-                playerRandomNum={playerRandomNum}
-                onPlayerRandomNumChange={handlePlayerRandomNumChange}
+                addTicketRandom={addTicketRandom}
             />
             </div>
             <div style={{display:'flex', flexDirection:'column'}}>
