@@ -10,30 +10,12 @@ export default function Lottery() {
     const description = `Valid players: ${players.join(', ')}`;
     const [tickets, setTickets] = useState( [] );
 
-    const [numberToCheck, setNumberCheck] = useState('');
-    const [checkResult, setCheckResult] = useState('');
-
-    const handleCheckChange = (event) => {
-        setNumberCheck(event.target.value);
-    }
-
     const addTicketRandom = (playerStr, num) => {
         const newTickets = [];
         for(let i = 0; i < num; i++) {
             newTickets.push({player: playerStr, number:generateRandomTicketNumber()})
         }
         setTickets((prevTickets) =>  [...prevTickets, ...newTickets]);
-    }
-
-    const handleNumberCheck = () => {
-        if (!validNumber(Number(numberToCheck))) { // Convert num to a number for validation
-            alert('Invalid number: ' + numberToCheck);
-            return;
-        }
-        let winningTickets = tickets.filter((ticket) => ticket.number === Number(numberToCheck))
-        console.log(tickets);
-        console.log(winningTickets)
-        setCheckResult(winningTickets);
     }
 
     function validPlayer(str) {
@@ -59,6 +41,14 @@ export default function Lottery() {
 
         let number = Array.from(digits).join('');
         return Number(number);
+    }
+
+    function checkTicket(num) {
+        if (!validNumber(Number(num))) { // Convert num to a number for validation
+            alert('Invalid number: ' + num);
+            return;
+        }
+        return tickets.filter((ticket) => ticket.number === Number(num))
     }
 
     function addTicket(playerStr, num) {
@@ -91,11 +81,7 @@ export default function Lottery() {
             <div style={{display:'flex', flexDirection:'column'}}>
                 <TicketViewer tickets={tickets}/>
                 <LottoChecker 
-                    tickets={tickets} 
-                    numberToCheck={numberToCheck} 
-                    numberCheckChange={handleCheckChange} 
-                    numberCheckClick={handleNumberCheck}
-                    checkResult={checkResult}
+                    checkTicket={checkTicket}
             />        
             </div>
         </div>

@@ -1,10 +1,14 @@
-export default function LottoChecker(props) {
-    function checkNumber(tickets, num) {
-        return tickets.some((ticket) => ticket.number === num);
-    }
+import { useState } from 'react'
 
-    function handleCheckTicket () {
-        return ;
+export default function LottoChecker({checkTicket}) {
+    const [numberToCheck, setNumberCheck] = useState('');
+    const [checkResult, setCheckResult] = useState('');
+
+    const handleCheckChange = (e) => setNumberCheck(e.target.value);
+
+    const handleNumberCheck = () => {
+        let winningTickets = checkTicket(numberToCheck);
+        winningTickets && setCheckResult(winningTickets);
     }
 
     return (
@@ -12,15 +16,15 @@ export default function LottoChecker(props) {
         <h3>Check Lotto Number: </h3>
         <input
             type="number"
-            value={props.numberToCheck}
-            onChange={props.numberCheckChange}
+            value={numberToCheck}
+            onChange={handleCheckChange}
             />
-        <button onClick={props.numberCheckClick}>Check Ticket</button>
+        <button onClick={handleNumberCheck}>Check Ticket</button>
         <div style={{maxWidth:'20vw'}}>
-        { props.checkResult.length > 0 ? 
-            props.checkResult.length === 1 ? 
-            `Winner is: ${props.checkResult.at(0).player}!` :
-            `Winners are: ${props.checkResult.map(ticket => ticket.player).join(', ')}!` :
+        { checkResult.length > 0 ? 
+            checkResult.length === 1 ? 
+            `Winner is: ${checkResult.at(0).player}!` :
+            `Winners are: ${checkResult.map(ticket => ticket.player).join(', ')}!` :
             'No winner'
         }
         </div>
